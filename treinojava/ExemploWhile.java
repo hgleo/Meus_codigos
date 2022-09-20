@@ -1,21 +1,17 @@
 package treinojava;
 
 public class ExemploWhile {
-    
-    public static void main(String[] args){
-        double cash = 3000.0;
-        double aux = cash;
-        while (cash > 3000.0) { 
 
-            Double valueCandy = 1500.0;
-                if(valueCandy > cash) {
-                    System.out.println("Não pode comprar. ");
-                }
-                else{
-                    aux = cash - valueCandy;
-                }   
+    public static void main(String[] args){
+        double mesada = 50.0;
+        while (mesada > 0) {
+            double valorDoce = 25;
+            if(valorDoce > mesada) {
+                mesada = mesada - valorDoce;
+            }
+            System.out.println("Apos a compra: " + valorDoce);
+            mesada = mesada - valorDoce;
         }
-        System.out.println("Mesada: " + cash);
-        System.out.println("Após comprar : " + aux);
+    System.out.println("Mesada: " + mesada);
     }
 }
