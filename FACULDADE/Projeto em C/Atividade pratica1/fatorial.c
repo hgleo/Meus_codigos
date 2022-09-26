@@ -3,6 +3,11 @@
 #include <locale.h>
 
 
+int fatorialRecursivo(int numero){
+
+    if(numero==0) return 1;
+    if(numero==1) return numero*fatorialRecursivo(numero-1);
+}
 
 int fatorial(int numero){
 
