@@ -1,24 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-Implemente uma função para cada uma das seguintes tarefas.
-Os parâmetros das funções estão descritos sobre uma ótica do usuário e não com o
-protótipo exato que será implementado. É permitido utilizar uma lista de parâmetros diferente
-da que foi informada.
-Obs1: Espaço alocado é o quanto de memória você reservou para o vetor e tamanho é o
-total de dados que o usuário informou.
-Obs2: O vetor é uma variável local da main
-0) MENU: Crie um Menu recursivo que pergunta ao usuário o que ele quer fazer. Este
-MENU não pode ter estrutura de repetição;
-1) INSERIR(x): insere um elemento x no final do vetor. Caso o vetor esteja cheio realoque
-o dobro do número de espaço reservado atualmente. Caso o vetor não tenha sido criado ainda,
-crie um com tamanho 1.
-2) CONSULTAR TAMANHO: informa a quantidade de dados do vetor
-3) CONSULTAR ESPAÇO ALOCADO: Informa qual o espaço de memória reservado para
-o vetor
-4) IMPRIMIR_VETOR: imprime todos os elementos do vetor
-*/
+
 
 void show(int* V, int tam){
 
