@@ -52,7 +52,7 @@ void inserir(int **V, int *tam, int *alocado,int num){
 
     else{
     
-        *V=(int*)realloc(*V,2*(*tam)*sizeof(int));
+        (*V)=(int*)realloc(*V,2*(*tam)*sizeof(int));
         (*V)[*tam]=num;
         (*tam)++;
         (*alocado)*=2;
@@ -61,55 +61,61 @@ void inserir(int **V, int *tam, int *alocado,int num){
 
 void queAlocado(int **V, int **alocado){
     
-    if(**V == NULL) {
-    printf("Tamanho do Espaço Alocado: 0");
+    if(*V == NULL) {
+    printf("Tamanho do Espaço Alocado: 0 \n");
+    system("pause");
     }
+    if(*V != NULL){
     printf("Espaço alocado: %d\n", **alocado);
     system("pause");
+    }
 }
 
 void queTam(int **V, int **tam){
     
-    if(**V == NULL){
-    printf("Tamanho do vetor: 0");
+    if(*V == NULL){
+    printf("Tamanho do vetor: 0\n");
+    system("pause");
     }
+    if(*V != NULL){
     printf("Tamanho do Vetor: %d\n",**tam);
     system("pause");
+    }
 }
 
 void menu(int **V, int *tam, int *alocado){
 
     int operador, num;
-    printf("Escolha uma opção: (0)Encerra |(1)Insere |(2)Mostra Vetor |(3)Consulta Tamanho|(4)Consulta Espaço alocado. \n");
-    scanf("%d", &operador);
+    int *pt = *V;
+
     system("cls");
     while (operador != 0){
-    
+
         printf("Escolha uma opção: (0)Encerra |(1)Insere |(2)Mostra Vetor |(3)Consulta Tamanho|(4)Consulta Espaço alocado. \n");
         scanf("%d", &operador);
         system("cls");
     switch(operador){
-        case 0: 
+        case 0:
             return;
         break;
 
-        case 1: 
+        case 1:
             printf("Digite um número para ser inserido no vetor: ");
             scanf("%d", &num);
             system("cls");
-            inserir(*V,tam,alocado,num);
+            inserir(V,tam,alocado,num); // aqui voce tem que passar o endereço do ponteiro v, como **V aqui já é um double pointer basta passar ele proprio
         break;
 
-        case 2: 
+        case 2:
             mostraVetor(*V,*tam);
         break;
 
-        case 3: 
-            queTam(*V,&tam);
+        case 3:
+            queTam(V,&tam); // aqui voce tem que passar o endereço do ponteiro v, como **V aqui já é um double pointer basta passar ele proprio
         break;
 
-        case 4: 
-            queAlocado(*V,&alocado);
+        case 4:
+            queAlocado(V,&alocado);// aqui voce tem que passar o endereço do ponteiro v, como **V aqui já é um double pointer basta passar ele proprio
         break;
     }
     system("cls");
