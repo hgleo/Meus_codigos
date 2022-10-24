@@ -24,9 +24,9 @@ o vetor
 
 void mostraVetor(int *V,int tam){
 
-    printf(" Vetor ==> ");
-    for (int i=0;i<tam;i++){
+    printf(" Vetor ==> ");(int i=0;i<tam;i++){
         printf(" %d ",V[i]);
+    for 
 }
     printf("\n");
     system("pause");

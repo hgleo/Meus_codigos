@@ -1,108 +1,97 @@
+/* C program for Merge Sort */
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 
-/*
-Implemente uma função para cada uma das seguintes tarefas.
-Os parâmetros das funções estão descritos sobre uma ótica do usuário e não com o
-protótipo exato que será implementado. É permitido utilizar uma lista de parâmetros diferente
-da que foi informada.
-Obs1: Espaço alocado é o quanto de memória você reservou para o vetor e tamanho é o
-total de dados que o usuário informou.
-Obs2: O vetor é uma variável local da main
-0) MENU: Crie um Menu recursivo que pergunta ao usuário o que ele quer fazer. Este
-MENU não pode ter estrutura de repetição;
-1) INSERIR(x): insere um elemento x no final do vetor. Caso o vetor esteja cheio realoque
-o dobro do número de espaço reservado atualmente. Caso o vetor não tenha sido criado ainda,
-crie um com tamanho 1.
-2) CONSULTAR TAMANHO: informa a quantidade de dados do vetor
-3) CONSULTAR ESPAÇO ALOCADO: Informa qual o espaço de memória reservado para
-o vetor
-4) IMPRIMIR_VETOR: imprime todos os elementos do vetor
-*/
+// Merges two subarrays of arr[].
+// First subarray is arr[l..m]
+// Second subarray is arr[m+1..r]
+void merge(int arr[], int l, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - l + 1;
+	int n2 = r - m;
 
-void mostraVetor(int *V, int tam){
+	/* create temp arrays */
+	int L[n1], R[n2];
 
-    printf("Vetor: ");
-    for(int i=0; i<tam; i++){
-        printf(" %d ",V[i]);
-    }
-    printf("\n");
+	/* Copy data to temp arrays L[] and R[] */
+	for (i = 0; i < n1; i++)
+		L[i] = arr[l + i];
+	for (j = 0; j < n2; j++)
+		R[j] = arr[m + 1 + j];
+
+	/* Merge the temp arrays back into arr[l..r]*/
+	i = 0; // Initial index of first subarray
+	j = 0; // Initial index of second subarray
+	k = l; // Initial index of merged subarray
+	while (i < n1 && j < n2) {
+		if (L[i] <= R[j]) {
+			arr[k] = L[i];
+			i++;
+		}
+		else {
+			arr[k] = R[j];
+			j++;
+		}
+		k++;
+	}
+
+	/* Copy the remaining elements of L[], if there
+	are any */
+	while (i < n1) {
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+
+	/* Copy the remaining elements of R[], if there
+	are any */
+	while (j < n2) {
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
 }
 
-int *inserir(int *V, int *tam,int *alocado,int num){
+/* l is for left index and r is right index of the
+sub-array of arr to be sorted */
+void mergeSort(int arr[], int l, int r)
+{
+	if (l < r) {
+		// Same as (l+r)/2, but avoids overflow for
+		// large l and h
+		int m = l + (r - l) / 2;
 
-    if(V==NULL){
-        V=(int*)malloc(1*sizeof(int));
-        V[*tam]=num;
-        *tam=1;
-        *alocado=1;
-        return V;
-    }
-    if(*tam<*alocado){
-        V[*tam]=num;
-        (*tam)++;
-    }else{
-        V=(int*)realloc(V,2*(*tam)*sizeof(int));
-        V[*tam]=num;
-        (*tam)++;
-        (*alocado)*=2;
-    }
-    return V;
+		// Sort first and second halves
+		mergeSort(arr, l, m);
+		mergeSort(arr, m + 1, r);
+
+		merge(arr, l, m, r);
+	}
 }
 
-void queAlocado(int **V, int **alocado){
-    
-    if(**V == NULL) {
-    printf("Tamanho do Espaço Alocado: 0");
-    }
-    printf("Espaço alocado: %d\n", **alocado);
-    system("pause");
+/* UTILITY FUNCTIONS */
+/* Function to print an array */
+void printArray(int A[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		printf("%d ", A[i]);
+	printf("\n");
 }
 
-void queTam(int **V, int **tam){
-    
-    if(**V == NULL){
-    printf("Tamanho do vetor: 0");
-    }
-    printf("Tamanho do Vetor: %d\n",**tam);
-    system("pause");
-}
+/* Driver code */
+int main()
+{
+	int arr[] = { 12, 11, 13, 5, 6, 7 };
+	int arr_size = sizeof(arr) / sizeof(arr[0]);
 
+	printf("Given array is \n");
+	printArray(arr, arr_size);
 
-int main(){
+	mergeSort(arr, 0, arr_size - 1);
 
-    int alocado=0, tam=0;
-    int* V=NULL;
-
-    int operador, num;
-
-    switch(operador){
-
-        case 0: 
-            return 0;
-        break;
-
-        case 1: 
-            printf("Digite um número para ser inserido no vetor: ");
-            scanf("%d", &num);
-            inserir(V,tam,alocado,num);
-        break;
-    
-        case 2: 
-            mostraVetor(*V,*tam);
-        break;
-
-        case 3: 
-            queTam(*V,&tam);
-        break;
-
-        case 4: 
-            queAlocado(*V,&alocado);
-        break;
-    }
-
-    }
-
-return 0;
+	printf("\nSorted array is \n");
+	printArray(arr, arr_size);
+	return 0;
 }
