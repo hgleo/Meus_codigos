@@ -74,7 +74,7 @@ Lista* lstBusca(Lista* l, int v){
 
 // Função que retira um elemento da lista, caso exista.
 
-Licontrol reaches end of non-void functionsta* lstRetira(Lista* l, int v){
+Lista* lstRetira(Lista* l, int v){
     Lista* ant = NULL; // Pointer pro elemento anterior.
     Lista* p = l; // Pointer pra percorrer a lista.
 

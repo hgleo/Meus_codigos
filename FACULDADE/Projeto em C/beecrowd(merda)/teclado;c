@@ -1,0 +1,133 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct item{
+	char info;
+	struct item *prox;
+} Item;
+
+typedef struct lista{
+	Item *ini;
+	Item *last;
+	Item *fim;
+} Lista;
+
+Lista* criaLista(){
+	Lista* p = (Lista*) malloc(sizeof(Lista));
+	p->ini = NULL;
+	p->last = NULL;
+	p->fim = NULL;
+	return p;
+}
+
+Lista* insere(Lista *L, char info){
+	Item *n = (Item*) malloc(sizeof(Item));
+	n->info = info;
+	n->prox = NULL;
+
+	if(L->ini == NULL){
+		L->ini = n;
+		L->last = n;
+		L->fim = n;
+
+		return L;
+	}
+
+	L->fim->prox = n;
+	L->fim = n;
+	L->last = n;
+
+	return L;
+}
+
+Lista* insereFim(Lista *L, char info){
+	Item *n = (Item*) malloc(sizeof(Item));
+	n->info = info;
+	if(L->ini == NULL){
+		L->ini = n;
+		L->last = n;
+		L->fim = n;
+
+		return L;
+	}
+	
+	if(L->last->prox == NULL){
+		L->fim = n;
+	}
+	
+	n->prox = L->last->prox;
+	L->last->prox = n;
+	L->last = n;
+
+	return L;
+}
+
+Lista* insereIni(Lista *L, char info){
+	Item *n = (Item*) malloc(sizeof(Item));
+	n->info = info;
+	if(L->ini == NULL){
+		L->ini = n;
+		L->last = n;
+		L->fim = n;
+
+		return L;
+	}
+	
+	n->prox = L->ini;
+	L->ini = n;
+	L->last = n;
+
+	return L;
+}
+
+void print_posordem(Item* ini){
+	if(ini != NULL){
+		printf("%c", ini->info);
+		print_posordem(ini->prox);
+	}
+}
+
+void libera_lista(Lista* L){
+	Item *n = L->ini;
+	while(n!=NULL){
+		Item *t = n;
+		n=t->prox;
+		free(t);
+	}
+	L->ini = NULL;
+	L->last = NULL;
+	L->fim = NULL;
+}
+
+int main(){
+	Lista* L = criaLista();
+
+	char leitura;
+	
+	int mudaTxt=0;
+	
+	while(scanf("%c",&leitura)!=EOF){
+		switch(leitura){
+			case '[':
+				mudaTxt = 1;
+				break;
+			case '\n':
+				print_posordem(L->ini);
+				printf("\n");
+				mudaTxt = 0;
+				libera_lista(L);
+				break;
+
+			case']':
+				mudaTxt = 2;
+				break;
+			default:
+				if(mudaTxt==1) insereIni(L, leitura);
+				if(mudaTxt==2) insere(L, leitura);
+				if(mudaTxt==0) insereFim(L, leitura);
+
+				mudaTxt = 0;
+				break;
+		}
+	}
+}
