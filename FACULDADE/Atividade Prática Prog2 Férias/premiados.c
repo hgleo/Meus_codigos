@@ -19,6 +19,7 @@ apenas as inscrições dos participantes que obtiveram a maior média (pode have
 ● retornar o ponteiro para o novo vetor.
 Considere que para uma mesma posição do vetor (mesmo índice), a inscrição e as notas se
 referem a um mesmo participante. O protótipo da função é:
+i
 int *premiados(int n, int *inscr, float *t1, int p1,float *t2, int p2, int *tam);
 
 */
@@ -76,13 +77,13 @@ int main() {
     scanf("%d", &p2);
 
     for(int i = 0; i < n; i++){
-        printf("Participante de inscrição %.2d: Notas: %.2f | %.2f");
+        printf("Participante de inscrição %.2d: Notas: %.2f | %.2f\n",i+1,t1[i],t2[i]);
     }
 
     int *inscr_premiados = premiados(n, &inscr, &t1, p1, &t2, p2, &tam);
-    printf("As inscrições vencedoras são: ");
+    printf("\nAs inscrições vencedoras são: ");
     for (int i = 0; i < tam; i++) {
-        printf("%d ", inscr_premiados[i]);
+        printf("%d \n", inscr_premiados[i]);
     }
     printf("\n");
     free(inscr_premiados);

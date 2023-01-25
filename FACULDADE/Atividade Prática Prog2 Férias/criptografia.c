@@ -34,6 +34,6 @@ int main() {
             printf("'%c' = %d, ", i + 'a', frequencia[i]);
         }
     }
-    printf("Espaçoes em branco: %d \n", aux);
+    printf("Espaços em branco: %d \n", aux);
     return 0;
 }
